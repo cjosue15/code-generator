@@ -6,7 +6,7 @@ import { GenerativeModel, GoogleGenerativeAI } from '@google/generative-ai';
 })
 export class GoogleGeminiService {
   getModel(): GenerativeModel {
-    // check doc for more ingormation to how to get your api key.
+    // see the readme for more information on how to get your api key.
     const api = new GoogleGenerativeAI('YOUR_API_KEY');
     return api.getGenerativeModel({
       model: 'gemini-pro-vision',
