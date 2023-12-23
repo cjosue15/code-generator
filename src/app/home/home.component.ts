@@ -1,12 +1,13 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { GenerativeModel } from '@google/generative-ai';
 
 import { GoogleGeminiService } from './data-access/google-gemini.service';
 import { DragAndDropComponent } from './ui/drag-and-drop/drag-and-drop.component';
 import { PreCodeComponent } from './ui/pre-code/pre-code.component';
-import { PROMPT } from './prompt';
 import { LoaderComponent } from './ui/loader/loader.component';
-import { NgTemplateOutlet } from '@angular/common';
+import { OpenStackblitzComponent } from './ui/open-stackblitz/open-stackblitz.component';
+import { PROMPT } from './prompt';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,12 @@ import { NgTemplateOutlet } from '@angular/common';
           *ngTemplateOutlet="text; context: { $implicit: isWriting() }"
         ></ng-container>
 
+        @if (!isWriting()) {
+          <div class="flex justify-end mb-4">
+            <app-open-stackblitz [template]="output()" />
+          </div>
+        }
+
         <app-pre-code>{{ output() }}</app-pre-code>
 
         <ng-container
@@ -62,6 +69,7 @@ import { NgTemplateOutlet } from '@angular/common';
     PreCodeComponent,
     LoaderComponent,
     NgTemplateOutlet,
+    OpenStackblitzComponent,
   ],
 })
 export class HomeComponent implements OnInit {
